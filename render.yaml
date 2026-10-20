@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: vark-traditions
+    runtime: node
+    plan: starter            # paid plan needed for the persistent disk
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: DATA_DIR
+        value: /var/data
+      - key: ADMIN_PASSWORD
+        sync: false          # you type this in the Render dashboard
+    disk:
+      name: vark-data
+      mountPath: /var/data   # products, uploaded photos and messages live here
+      sizeGB: 1

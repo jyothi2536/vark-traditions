@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Admin · VARK Traditions</title>
+  <link rel="icon" type="image/png" href="images/logo.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root { --green: #0f4a2e; --dark: #0a3320; --gold: #c9a24a; --cream: #fbf6ee; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Poppins', sans-serif; background: var(--cream); color: #2b2b2b; }
+    h1, h2 { font-family: 'Cormorant Garamond', serif; color: var(--green); }
+    header { background: linear-gradient(180deg, var(--dark), #072818); color: #f3e2b8; padding: 14px 5%; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(201,162,74,.45); }
+    header .brand { display: flex; align-items: center; gap: 12px; font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; }
+    header img { width: 44px; height: 44px; clip-path: circle(48.5%); }
+    header a, header button { color: #f3e2b8; background: none; border: 1px solid rgba(201,162,74,.6); border-radius: 30px; padding: 6px 16px; cursor: pointer; font-family: inherit; text-decoration: none; margin-left: 8px; }
+    main { width: 92%; max-width: 1100px; margin: 30px auto 60px; }
+    .card { background: #fff; border-radius: 14px; padding: 26px; margin-bottom: 26px; box-shadow: 0 4px 18px rgba(0,0,0,.06); }
+    .card h2 { margin-bottom: 4px; font-size: 1.8rem; }
+    .hint { color: #777; font-size: .85rem; margin-bottom: 18px; }
+    label { display: block; font-size: .85rem; font-weight: 500; margin-bottom: 6px; }
+    input, select { width: 100%; padding: 11px 14px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; font-size: .95rem; margin-bottom: 14px; }
+    input:focus, select:focus { outline: none; border-color: var(--gold); }
+    .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0 16px; }
+    .btn { background: var(--green); color: #fff; border: none; padding: 11px 26px; border-radius: 30px; cursor: pointer; font-family: inherit; font-size: .95rem; }
+    .btn:hover { background: var(--gold); }
+    .btn.ghost { background: none; color: var(--green); border: 1px solid var(--green); }
+    .btn:disabled { opacity: .6; cursor: wait; }
+    .drop { border: 2px dashed var(--gold); border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; margin-bottom: 14px; background: #fffaf0; }
+    .drop img { max-height: 200px; margin: 0 auto 8px; display: block; border-radius: 8px; }
+    .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+    .tabs button { padding: 6px 16px; border-radius: 30px; border: 1px solid var(--green); background: none; color: var(--green); cursor: pointer; font-family: inherit; }
+    .tabs button.active { background: var(--green); color: #fff; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 18px; }
+    .item { border: 1px solid #eee; border-radius: 12px; overflow: hidden; }
+    .item .ph { height: 220px; background: #f3f3f3 center/cover; position: relative; }
+    .item .tag { position: absolute; top: 8px; left: 8px; background: var(--gold); color: #fff; font-size: .7rem; padding: 2px 9px; border-radius: 20px; }
+    .item .b { padding: 12px; font-size: .9rem; }
+    .item .cat { color: #888; font-size: .75rem; text-transform: uppercase; letter-spacing: 1px; }
+    .item .acts { display: flex; gap: 8px; margin-top: 10px; }
+    .item .acts button { flex: 1; padding: 7px; border-radius: 6px; border: 1px solid #ddd; background: #fff; cursor: pointer; font-family: inherit; }
+    .item .acts .del { color: #b3261e; border-color: #f0c8c5; }
+    .login { max-width: 380px; margin: 12vh auto; text-align: center; }
+    .login img { width: 120px; margin: 0 auto 10px; clip-path: circle(48.5%); }
+    .msg { margin-top: 10px; font-size: .9rem; min-height: 1.2em; }
+    .msg.err { color: #b3261e; } .msg.ok { color: #1e7a3c; }
+    #editing { display: none; background: #fff6df; border-radius: 8px; padding: 8px 12px; margin-bottom: 14px; font-size: .85rem; }
+    .msg-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+    .photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; margin-bottom: 12px; }
+    .photos:empty { display: none; }
+    .pthumb { position: relative; border-radius: 10px; overflow: hidden; border: 1px solid #eee; background: #f6f6f6; }
+    .pthumb img { width: 100%; height: 160px; object-fit: cover; display: block; }
+    .pthumb .cover { position: absolute; top: 6px; left: 6px; background: var(--green); color: #fff; font-size: .7rem; padding: 2px 8px; border-radius: 20px; }
+    .pacts { display: flex; }
+    .pacts button { flex: 1; border: none; border-top: 1px solid #eee; background: #fff; padding: 6px 0; cursor: pointer; font-size: .8rem; }
+    .pacts button:hover:not(:disabled) { background: #fff6df; }
+    .pacts button:disabled { opacity: .3; cursor: default; }
+    .pacts .rm { color: #b3261e; }
+    .item .count { position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,.6); color: #fff; font-size: .7rem; padding: 2px 8px; border-radius: 20px; }
+    .badge { background: #b3261e; color: #fff; font-family: 'Poppins', sans-serif; font-size: .75rem; border-radius: 20px; padding: 2px 10px; vertical-align: middle; }
+    .m { border: 1px solid #eee; border-left: 4px solid #ddd; border-radius: 10px; padding: 14px 16px; margin-bottom: 12px; }
+    .m.unread { border-left-color: var(--gold); background: #fffaf0; }
+    .m .top { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px; font-size: .9rem; }
+    .m .who a { color: var(--green); }
+    .m .when { color: #888; font-size: .8rem; }
+    .m .text { margin: 10px 0; white-space: pre-wrap; word-break: break-word; }
+    .m .acts { display: flex; gap: 8px; flex-wrap: wrap; }
+    .m .acts a, .m .acts button { padding: 6px 14px; border-radius: 6px; border: 1px solid #ddd; background: #fff; cursor: pointer; font-family: inherit; font-size: .85rem; color: #2b2b2b; text-decoration: none; }
+    .m .acts .del { color: #b3261e; border-color: #f0c8c5; }
+  </style>
+</head>
+<body>
+  <!-- Login -->
+  <div class="card login" id="loginView">
+    <img src="images/logo.png" alt="VARK Traditions" />
+    <h2>Admin Portal</h2>
+    <p class="hint">Sign in to update products and announcements</p>
+    <form id="loginForm">
+      <input type="password" id="password" placeholder="Admin password" required autofocus />
+      <button class="btn" style="width:100%">Sign In</button>
+      <p class="msg err" id="loginMsg"></p>
+    </form>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="appView" hidden>
+    <header>
+      <div class="brand"><img src="images/logo.png" alt="" /> VARK Admin</div>
+      <div><a href="/" target="_blank">View Website ↗</a><button id="logout">Log out</button></div>
+    </header>
+
+    <main>
+      <section class="card">
+        <div class="msg-head">
+          <div><h2>Messages <span class="badge" id="unreadBadge" hidden></span></h2>
+          <p class="hint">Sent from the Contact page. Click "Reply" to answer by email.</p></div>
+          <button class="btn ghost" id="refreshMsgs">↻ Refresh</button>
+        </div>
+        <div id="messages"></div>
+      </section>
+      <section class="card">
+        <h2>Announcements</h2>
+        <p class="hint">Change these anytime — e.g. for Diwali, Holi, Eid, Christmas or a sale. Leave empty to hide.</p>
+        <form id="settingsForm">
+          <label>Home page message (under the logo)</label>
+          <input id="homeAnnouncement" maxlength="120" placeholder="🪔 Diwali Collection Now Live 🪔" />
+          <label>Top strip message (on shop & contact pages)</label>
+          <input id="topbar" maxlength="160" placeholder="✨ Festive Collection now live ✨" />
+          <button class="btn">Save Announcements</button>
+          <p class="msg" id="settingsMsg"></p>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2 id="formTitle">Add New Product</h2>
+        <p class="hint">Add up to 10 photos per product (JPG/PNG/WEBP, max 8 MB each) — front, back, close-ups of border & blouse etc. The first photo is the cover shown on the website.</p>
+        <div id="editing">✏️ Editing <strong id="editingName"></strong> — <a href="#" id="cancelEdit">cancel</a></div>
+        <form id="productForm">
+          <div class="photos" id="photos"></div>
+          <div class="drop" id="drop">
+            <span id="dropText">📷 Click or drag photos here (you can select several at once)</span>
+            <input type="file" id="image" accept="image/jpeg,image/png,image/webp,image/gif" multiple hidden />
+          </div>
+          <div class="row">
+            <div><label>Product name *</label><input id="name" maxlength="120" required placeholder="e.g. Banarasi Silk Saree" /></div>
+            <div>
+              <label>Category *</label>
+              <select id="cat" required>
+                <option value="women">Women – Traditional Wear</option>
+                <option value="sarees">Women – Cocktail Sarees</option>
+                <option value="minute">Women – 1-Minute Sarees</option>
+                <option value="men">Men</option>
+                <option value="kids">Kids</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div><label>Price (USD) *</label><input id="price" type="number" min="0.01" step="0.01" required placeholder="99" /></div>
+            <div><label>Original price (optional, shown crossed out)</label><input id="mrp" type="number" min="0" step="0.01" placeholder="129" /></div>
+            <div><label>Badge (optional)</label><input id="tag" maxlength="30" placeholder="New / Bestseller / Sale" /></div>
+          </div>
+          <button class="btn" id="saveBtn">Add Product</button>
+          <p class="msg" id="productMsg"></p>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Your Products</h2>
+        <p class="hint">Newest first. Changes show on the website immediately.</p>
+        <div class="tabs" id="tabs"></div>
+        <div class="grid" id="list"></div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const CATS = { women: "Women – Traditional", sarees: "Cocktail Sarees", minute: "1-Minute Sarees", men: "Men", kids: "Kids" };
+    const $ = id => document.getElementById(id);
+    const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    let token = sessionStorage.getItem("varkAdmin");
+    let products = [], tab = "all", editId = null;
+
+    async function api(url, opts = {}) {
+      const res = await fetch(url, { ...opts, headers: { ...(opts.headers || {}), Authorization: "Bearer " + token } });
+      const data = await res.json().catch(() => ({}));
+      if (res.status === 401 && url !== "/api/login") { logout(); throw new Error("Session expired – please sign in again"); }
+      if (!res.ok) throw new Error(data.error || "Something went wrong");
+      return data;
+    }
+    function flash(el, text, ok = true) { el.textContent = text; el.className = "msg " + (ok ? "ok" : "err"); if (ok) setTimeout(() => (el.textContent = ""), 3000); }
+
+    // ---- login ----
+    $("loginForm").onsubmit = async e => {
+      e.preventDefault();
+      try {
+        const res = await fetch("/api/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: $("password").value }) });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error);
+        token = data.token; sessionStorage.setItem("varkAdmin", token); start();
+      } catch (err) { flash($("loginMsg"), err.message || "Could not connect to server", false); }
+    };
+    function logout() {
+      if (token) fetch("/api/logout", { method: "POST", headers: { Authorization: "Bearer " + token } }).catch(() => {});
+      token = null; sessionStorage.removeItem("varkAdmin");
+      $("appView").hidden = true; $("loginView").hidden = false;
+    }
+    $("logout").onclick = logout;
+
+    async function start() {
+      $("loginView").hidden = true; $("appView").hidden = false;
+      const data = await (await fetch("/api/content")).json();
+      $("homeAnnouncement").value = data.settings?.homeAnnouncement || "";
+      $("topbar").value = data.settings?.topbar || "";
+      products = data.products || [];
+      renderList();
+      loadMessages();
+    }
+
+    // ---- messages ----
+    let messages = [];
+    async function loadMessages() {
+      try { messages = await api("/api/messages"); renderMessages(); }
+      catch (err) { $("messages").innerHTML = `<p class="msg err">${esc(err.message)}</p>`; }
+    }
+    function renderMessages() {
+      const unread = messages.filter(m => !m.read).length;
+      $("unreadBadge").hidden = !unread; $("unreadBadge").textContent = unread + " new";
+      $("messages").innerHTML = messages.length ? messages.map(m => `
+        <div class="m ${m.read ? "" : "unread"}">
+          <div class="top">
+            <div class="who"><strong>${esc(m.name)}</strong> · <a href="mailto:${esc(m.email)}">${esc(m.email)}</a>${m.phone ? ` · <a href="tel:${esc(m.phone)}">${esc(m.phone)}</a>` : ""}</div>
+            <div class="when">${new Date(m.date).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" })}</div>
+          </div>
+          <div class="text">${esc(m.message)}</div>
+          <div class="acts">
+            <a href="mailto:${esc(m.email)}?subject=${encodeURIComponent("Re: Your message to VARK Traditions")}">✉️ Reply</a>
+            <button onclick="markRead('${esc(m.id)}', ${!m.read})">${m.read ? "Mark unread" : "✓ Mark read"}</button>
+            <button class="del" onclick="deleteMessage('${esc(m.id)}')">🗑 Delete</button>
+          </div>
+        </div>`).join("") : `<p class="hint">No messages yet.</p>`;
+    }
+    window.markRead = async (id, read) => {
+      try { const m = await api("/api/messages/" + id, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ read }) }); messages = messages.map(x => (x.id === id ? m : x)); renderMessages(); }
+      catch (err) { alert(err.message); }
+    };
+    window.deleteMessage = async id => {
+      const m = messages.find(x => x.id === id);
+      if (!confirm(`Delete the message from ${m.name}? This cannot be undone.`)) return;
+      try { await api("/api/messages/" + id, { method: "DELETE" }); messages = messages.filter(x => x.id !== id); renderMessages(); }
+      catch (err) { alert(err.message); }
+    };
+    $("refreshMsgs").onclick = loadMessages;
+
+    // ---- announcements ----
+    $("settingsForm").onsubmit = async e => {
+      e.preventDefault();
+      try {
+        await api("/api/settings", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ homeAnnouncement: $("homeAnnouncement").value, topbar: $("topbar").value }) });
+        flash($("settingsMsg"), "✅ Saved! Live on the website now.");
+      } catch (err) { flash($("settingsMsg"), err.message, false); }
+    };
+
+    // ---- photo picker (multiple photos, first = cover) ----
+    const MAX_PHOTOS = 10;
+    const fileInput = $("image");
+    let photos = []; // { url } for saved photos, { file, url } for new ones
+    $("drop").onclick = () => fileInput.click();
+    $("drop").ondragover = e => e.preventDefault();
+    $("drop").ondrop = e => { e.preventDefault(); addFiles(e.dataTransfer.files); };
+    fileInput.onchange = () => { addFiles(fileInput.files); fileInput.value = ""; };
+    function addFiles(list) {
+      const imgs = [...list].filter(f => f.type.startsWith("image/"));
+      const room = MAX_PHOTOS - photos.length;
+      if (imgs.length > room) flash($("productMsg"), `Maximum ${MAX_PHOTOS} photos per product — extra photos were skipped.`, false);
+      imgs.slice(0, room).forEach(f => photos.push({ file: f, url: URL.createObjectURL(f) }));
+      renderPhotos();
+    }
+    function renderPhotos() {
+      $("photos").innerHTML = photos.map((p, i) => `
+        <div class="pthumb">
+          <img src="${esc(p.url)}" alt="" />
+          ${i === 0 ? `<span class="cover">Cover</span>` : ""}
+          <div class="pacts">
+            <button type="button" title="Move left" onclick="movePhoto(${i},-1)" ${i === 0 ? "disabled" : ""}>◀</button>
+            <button type="button" title="Make cover" onclick="movePhoto(${i},-${i})" ${i === 0 ? "disabled" : ""}>★</button>
+            <button type="button" title="Move right" onclick="movePhoto(${i},1)" ${i === photos.length - 1 ? "disabled" : ""}>▶</button>
+            <button type="button" title="Remove" class="rm" onclick="removePhoto(${i})">✕</button>
+          </div>
+        </div>`).join("");
+      $("dropText").textContent = photos.length
+        ? `${photos.length}/${MAX_PHOTOS} photos · click or drag to add more`
+        : "📷 Click or drag photos here (you can select several at once)";
+    }
+    window.movePhoto = (i, d) => { const [p] = photos.splice(i, 1); photos.splice(i + d, 0, p); renderPhotos(); };
+    window.removePhoto = i => { const [p] = photos.splice(i, 1); if (p.file) URL.revokeObjectURL(p.url); renderPhotos(); };
+
+    // ---- add / edit product ----
+    $("productForm").onsubmit = async e => {
+      e.preventDefault();
+      if (!photos.length) return flash($("productMsg"), "Please add at least one photo", false);
+      const fd = new FormData();
+      ["name", "cat", "price", "mrp", "tag"].forEach(k => fd.append(k, $(k).value));
+      let n = 0;
+      const order = photos.map(p => {
+        if (!p.file) return "old:" + p.url;
+        fd.append("images", p.file);
+        return "new:" + n++;
+      });
+      fd.append("order", JSON.stringify(order));
+      $("saveBtn").disabled = true; $("saveBtn").textContent = "Uploading…";
+      try {
+        const p = await api(editId ? "/api/products/" + editId : "/api/products", { method: editId ? "PUT" : "POST", body: fd });
+        if (editId) products = products.map(x => (x.id === p.id ? p : x)); else products.unshift(p);
+        flash($("productMsg"), editId ? "✅ Product updated!" : "✅ Product added! Live on the website now.");
+        resetForm(); renderList();
+      } catch (err) { flash($("productMsg"), err.message, false); }
+      $("saveBtn").disabled = false; $("saveBtn").textContent = editId ? "Save Changes" : "Add Product";
+    };
+    function resetForm() {
+      editId = null; $("productForm").reset();
+      photos.forEach(p => p.file && URL.revokeObjectURL(p.url)); photos = []; renderPhotos();
+      $("formTitle").textContent = "Add New Product"; $("saveBtn").textContent = "Add Product"; $("editing").style.display = "none";
+    }
+    $("cancelEdit").onclick = e => { e.preventDefault(); resetForm(); };
+
+    window.editProduct = id => {
+      const p = products.find(x => x.id === id); editId = id;
+      ["name", "cat", "price", "tag"].forEach(k => ($(k).value = p[k] ?? ""));
+      $("mrp").value = p.mrp ?? "";
+      photos = (p.images?.length ? p.images : [p.img]).filter(Boolean).map(url => ({ url })); renderPhotos();
+      $("formTitle").textContent = "Edit Product"; $("saveBtn").textContent = "Save Changes";
+      $("editingName").textContent = p.name; $("editing").style.display = "block";
+      $("productForm").scrollIntoView({ behavior: "smooth", block: "center" });
+    };
+    window.deleteProduct = async id => {
+      const p = products.find(x => x.id === id);
+      if (!confirm(`Delete "${p.name}"? This cannot be undone.`)) return;
+      try { await api("/api/products/" + id, { method: "DELETE" }); products = products.filter(x => x.id !== id); if (editId === id) resetForm(); renderList(); }
+      catch (err) { alert(err.message); }
+    };
+
+    // ---- product list ----
+    function renderList() {
+      const counts = { all: products.length };
+      products.forEach(p => (counts[p.cat] = (counts[p.cat] || 0) + 1));
+      $("tabs").innerHTML = [["all", "All"], ...Object.entries(CATS)].map(([k, l]) => `<button data-k="${k}" class="${k === tab ? "active" : ""}">${l} (${counts[k] || 0})</button>`).join("");
+      $("tabs").querySelectorAll("button").forEach(b => (b.onclick = () => { tab = b.dataset.k; renderList(); }));
+      const list = products.filter(p => tab === "all" || p.cat === tab);
+      $("list").innerHTML = list.length ? list.map(p => `
+        <div class="item">
+          <div class="ph" style="background-image:url('${esc(encodeURI(p.img))}')">${p.tag ? `<span class="tag">${esc(p.tag)}</span>` : ""}${(p.images?.length || 1) > 1 ? `<span class="count">📷 ${p.images.length}</span>` : ""}</div>
+          <div class="b">
+            <div class="cat">${CATS[p.cat] || p.cat}</div>
+            <strong>${esc(p.name)}</strong><br>$${Number(p.price).toFixed(2)} ${p.mrp ? `<del style="color:#aaa">$${Number(p.mrp).toFixed(2)}</del>` : ""}
+            <div class="acts"><button onclick="editProduct(${p.id})">✏️ Edit</button><button class="del" onclick="deleteProduct(${p.id})">🗑 Delete</button></div>
+          </div>
+        </div>`).join("") : `<p class="hint">No products in this category yet.</p>`;
+    }
+
+    if (token) start().catch(logout);
+  </script>
+</body>
+</html>
