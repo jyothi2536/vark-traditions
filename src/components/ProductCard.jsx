@@ -1,9 +1,10 @@
 import { useStore } from "../store";
 import { formatPrice, photosOf } from "../shared/catalog";
 import { imageUrl } from "../shared/api";
+import { CONTACT } from "../shared/config";
 
 export default function ProductCard({ p }) {
-  const { addToCart, setGalleryId } = useStore();
+  const { setGalleryId } = useStore();
   const count = photosOf(p).length;
   return (
     <div className="product">
@@ -20,7 +21,12 @@ export default function ProductCard({ p }) {
       <div className="info">
         <h4>{p.name}</h4>
         <p className="price">{formatPrice(p.price)} {p.mrp > p.price && <del>{formatPrice(p.mrp)}</del>}</p>
-        <button onClick={() => addToCart(p.id)}>Add to Bag</button>
+        <a
+          className="enquire"
+          href={`${CONTACT.whatsappChat}?text=${encodeURIComponent(`Hi, I'm interested in "${p.name}". Is it available?`)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >Enquire on WhatsApp</a>
       </div>
     </div>
   );

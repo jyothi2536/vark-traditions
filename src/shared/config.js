@@ -3,6 +3,7 @@
 export const API_BASE = "";
 
 export const CONTACT = {
+  address: "1805 Habersham Marina Rd, Cumming, GA 30041",
   email: "varktraditions@gmail.com",
   phoneDisplay: "+1 (404) 971-3550",
   phoneTel: "+14049713550",

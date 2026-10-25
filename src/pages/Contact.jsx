@@ -43,7 +43,9 @@ export default function Contact() {
             <p>💬 <a href={CONTACT.whatsappChat} target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a></p>
             <p>👥 <a href={CONTACT.whatsappCommunity} target="_blank" rel="noopener noreferrer">Join our WhatsApp Community</a></p>
             <p>📸 <a href={CONTACT.instagram} target="_blank" rel="noopener noreferrer">{CONTACT.instagramHandle} on Instagram</a></p>
-            <p>📍 Proudly based in the USA · Shipping nationwide</p>
+            <p>📍 {CONTACT.address}</p>
+            <p>🕑 Visits by appointment — please message us on WhatsApp first.</p>
+            <p>📦 Need it shipped? Reach out on WhatsApp and we'll share our shipping details.</p>
           </Reveal>
           <Reveal as="form" onSubmit={onSubmit}>
             <input value={form.name} onChange={set("name")} maxLength={100} placeholder="Your Name" required />
@@ -63,25 +65,9 @@ export default function Contact() {
           <Reveal>
             <p className="eyebrow">Our Story</p>
             <h2>Tradition, Woven with Love</h2>
-            <p>VARK Traditions is a USA-based business born from a love for India's rich textile heritage. We bring Indian families across America carefully curated ethnic wear — from elegant men's kurtas and graceful women's outfits to glamorous cocktail sarees and adorable kids' traditional clothing.</p>
-            <p>Every piece celebrates artisans, quality fabrics and designs that make you feel proud of your roots at every festival, wedding and celebration.</p>
-            <div className="stats">
-              <div><strong>5000+</strong><span>Happy Customers</span></div>
-              <div><strong>500+</strong><span>Designs</span></div>
-              <div><strong>100%</strong><span>Quality Assured</span></div>
-            </div>
+            <p>VARK Traditions is a new store born from a love for India's rich textile heritage. We offer carefully selected ethnic wear — from elegant men's kurtas and graceful women's outfits to glamorous cocktail sarees and adorable kids' traditional clothing.</p>
+            <p>Every piece is chosen for its quality fabric and design, so you can feel proud of your roots at every festival, wedding and celebration. Visit us in store to see and try our collection.</p>
           </Reveal>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          <Reveal className="section-head"><p className="eyebrow">Testimonials</p><h2>What Our Customers Say</h2></Reveal>
-          <div className="testimonials">
-            <Reveal as="blockquote">"The kurta fabric is so soft and the fit is perfect. Wore it to my brother's wedding and got so many compliments!"<cite>— Rahul K., Dallas, TX</cite></Reveal>
-            <Reveal as="blockquote">"My cocktail saree was absolutely stunning. Beautiful drape and quick delivery."<cite>— Priya S., San Jose, CA</cite></Reveal>
-            <Reveal as="blockquote">"Bought matching outfits for my kids for Diwali — they looked adorable. Great quality!"<cite>— Anjali M., Edison, NJ</cite></Reveal>
-          </div>
         </div>
       </section>
     </div>

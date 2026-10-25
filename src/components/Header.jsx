@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { useStore } from "../store";
 
 const MENU = [
   { to: "/", label: "Home" },
@@ -11,7 +10,6 @@ const MENU = [
 ];
 
 export default function Header() {
-  const { count, setCartOpen } = useStore();
   const [open, setOpen] = useState(false);
   return (
     <header className="header">
@@ -25,7 +23,6 @@ export default function Header() {
           ))}
         </nav>
         <div className="nav-actions">
-          <button className="cart-btn" onClick={() => setCartOpen(true)} aria-label="Open bag">🛍 <span>{count}</span></button>
           <button className="menu-toggle" onClick={() => setOpen(o => !o)} aria-label="Menu">☰</button>
         </div>
       </div>
