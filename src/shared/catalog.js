@@ -27,7 +27,7 @@ export const SHOP_PAGES = {
     eyebrow: "Men's Collection",
     title: "Kurtas with *Character*",
     desc: "Silk, cotton and chikankari kurtas — crafted for festivals, weddings and everyday elegance.",
-    img: "https://images.unsplash.com/photo-1597983073493-88cd35cf93b0?w=1800",
+    img: "", // plain green & gold banner (no photo)
     subs: [{ filter: "men", label: "All Kurtas" }],
   },
   kids: {

@@ -18,7 +18,7 @@ export default function Shop() {
 
   return (
     <div className="page">
-      <section className="hero page-hero" style={{ backgroundImage: `url("${page.img}")` }}>
+      <section className="hero page-hero" style={page.img ? { backgroundImage: `url("${page.img}")` } : { background: "linear-gradient(135deg, #0a3320 0%, #0f4a2e 55%, #1b5e3b 100%)" }}>
         <div className="hero-overlay" />
         <div className="container hero-content">
           <p className="eyebrow">{page.eyebrow}</p>
